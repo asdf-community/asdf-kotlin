@@ -3,6 +3,10 @@
 # asdf-kotlin
 kotlin plugin for [asdf version manager](https://github.com/asdf-vm/asdf)
 
+## Requirements
+
+* [Java 6 to 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html) - You may want to try [asdf-java](https://github.com/skotchpine/asdf-java) `asdf plugin-add java https://github.com/skotchpine/asdf-java`
+
 ## Install
 
 ```
@@ -19,7 +23,6 @@ Feel free to create an issue or pull request if you find a bug.
 
 ## Issues
 
-* Kotlin requires java 6 to 8 install and available in your $PATH, take a look at https://github.com/skotchpine/asdf-java
 * Tested only on Linux and Mac
 
 ## License
