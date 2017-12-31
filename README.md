@@ -19,6 +19,7 @@ Feel free to create an issue or pull request if you find a bug.
 
 ## Issues
 
+* Kotlin requires java 6 to 8 install and available in your $PATH, take a look at https://github.com/skotchpine/asdf-java
 * Tested only on Linux and Mac
 
 ## License
