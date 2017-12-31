@@ -23,7 +23,7 @@ Feel free to create an issue or pull request if you find a bug.
 
 ## Issues
 
-* Tested only on Linux and Mac
+* Doesn't check if java is installed
 
 ## License
 MIT License
