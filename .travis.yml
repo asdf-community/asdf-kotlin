@@ -1,5 +1,5 @@
 language: java
-script: asdf plugin-test kotlin https://github.com/missingcharacter/asdf-kotlin.git "kotlin -version"
+script: asdf plugin-test kotlin https://github.com/missingcharacter/asdf-kotlin.git
 before_script:
   - git clone https://github.com/asdf-vm/asdf.git asdf
   - . asdf/asdf.sh
