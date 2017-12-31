@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/missingcharacter/asdf-kotlin.svg?branch=master)](https://travis-ci.org/missingcharacter/asdf-kotlin)
 
-# asdf-golang
-golang plugin for [asdf version manager](https://github.com/asdf-vm/asdf)
+# asdf-kotlin
+kotlin plugin for [asdf version manager](https://github.com/asdf-vm/asdf)
 
 ## Install
 
