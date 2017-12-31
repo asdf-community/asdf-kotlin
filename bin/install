@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+install () {
+  local install_type=$1
+  local version=$2
+  local install_path=$3
+  local platform=""
+  local tempdir=""
+
+  [ "Linux" = "$(uname)" ] && platform="linux" || platform="darwin"
+  [ "linux" = "${platform}" ] && tempdir=$(mktemp -d asdf-kotlin.XXXX) || tempdir=$(mktemp -dt asdf-kotlin)
+
+  curl -L "https://github.com/JetBrains/kotlin/releases/download/v${version}/kotlin-compiler-${version}.zip" -o "${tempdir}/kotlin-compiler.zip"
+
+  unzip -qq "${tempdir}/kotlin-compiler.zip" -d "${install_path}"
+
+  rm -rf "${tempdir}"
+}
+
+install "${ASDF_INSTALL_TYPE}" "${ASDF_INSTALL_VERSION}" "${ASDF_INSTALL_PATH}"

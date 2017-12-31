@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+if [ "${KOTLIN_HOME}" = "" ] ; then
+    export KOTLIN_HOME=$ASDF_INSTALL_PATH/kotlinc
+fi
