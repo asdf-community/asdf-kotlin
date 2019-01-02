@@ -6,13 +6,29 @@ install () {
   local install_path=$3
   local platform=""
   local tempdir=""
+  local native_filename=""
 
   [ "Linux" = "$(uname)" ] && platform="linux" || platform="darwin"
   [ "linux" = "${platform}" ] && tempdir=$(mktemp -d asdf-kotlin.XXXX) || tempdir=$(mktemp -dt asdf-kotlin)
 
   curl -L "https://github.com/JetBrains/kotlin/releases/download/v${version}/kotlin-compiler-${version}.zip" -o "${tempdir}/kotlin-compiler.zip"
-
   unzip -qq "${tempdir}/kotlin-compiler.zip" -d "${install_path}"
+
+  if [[ $platform == "linux-gnu" ]]; then
+    native_filename="kotlin-native-linux-${version}.tar.gz"
+  elif [[ $platform == "darwin" ]]; then
+    native_filename="kotlin-native-macos-${version}.tar.gz"
+  fi
+
+  if [[ ! -z $native_filename ]]; then
+    echo "try ${native_filename}"
+    local native_url="https://github.com/JetBrains/kotlin/releases/download/v${version}/${native_filename}"
+    local native_install_path="${install_path}/kotlin-native"
+
+    curl -fL "${native_url}" -o "${tempdir}/kotlin-native.tar.gz" && \
+    mkdir -p "${native_install_path}" && \
+    (cd "${native_install_path}" && tar -xf "${tempdir}/kotlin-native.tar.gz" --strip-components=1)
+  fi
 
   rm -rf "${tempdir}"
 }
