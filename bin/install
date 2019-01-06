@@ -21,7 +21,6 @@ install () {
   fi
 
   if [[ ! -z $native_filename ]]; then
-    echo "try ${native_filename}"
     local native_url="https://github.com/JetBrains/kotlin/releases/download/v${version}/${native_filename}"
     local native_install_path="${install_path}/kotlin-native"
 
