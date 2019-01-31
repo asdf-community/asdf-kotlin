@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/missingcharacter/asdf-kotlin.svg?branch=master)](https://travis-ci.org/missingcharacter/asdf-kotlin)
 
 # asdf-kotlin
-kotlin plugin for [asdf version manager](https://github.com/asdf-vm/asdf)
+kotlin (and [kotlin-native if available](https://github.com/missingcharacter/asdf-kotlin/pull/4)) plugin for [asdf version manager](https://github.com/asdf-vm/asdf)
 
 ## Requirements
 
