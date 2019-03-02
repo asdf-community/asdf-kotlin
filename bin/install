@@ -1,31 +1,49 @@
 #!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
+
+# Ensure dependencies are present
+if [[ ! -x $(which curl) ]] || [[ ! -x $(which tar) ]] || [[ ! -x $(which unzip) ]]; then
+    echo "[-] Dependencies unmet.  Please verify that the following are installed and in the PATH:  curl, tar or unzip" >&2
+    exit 1
+fi
 
 # the releases page version does not line up with the kotlin version
 # so fetch the native-x.y.z version from the releases page
 get_native_download_url () {
-  version=$1
-  check_url=$2
-  platform=$3
+  local version=${1}
+  local check_url=${2}
+  local platform=${3}
+  local tempdir=""
 
-  local grep_command=""
+  local grep_option=""
   local native_filename=""
-  if [[ $platform == "linux" ]]; then
+  if [[ "${platform}" == "linux" ]]; then
     native_filename="kotlin-native-linux-\d\.\d\.\d.tar.gz"
-    grep_command="grep -P"
-  elif [[ $platform == "darwin" ]]; then
+    grep_option="-P"
+    tempdir=$(mktemp -d asdf-kotlin-native.XXXX)
+  elif [[ "${platform}" == "darwin" ]]; then
     native_filename="kotlin-native-macos-\d\.\d\.\d.tar.gz"
-    grep_command="grep -E"
+    grep_option="-E"
+    tempdir=$(mktemp -dt asdf-kotlin-native)
   fi
 
   local check_regex="/JetBrains/kotlin/releases/download/v${version}/${native_filename}"
-  local check_native=$(curl "${check_url}" | $grep_command "${check_regex}" | cut -f2 -d '"')
-  echo $check_native
+  local temp_html="${tempdir}/github-kotlin-release-v${version}.html"
+  curl --disable "${check_url}" -o "${temp_html}"
+  if grep ${grep_option} "${check_regex}" "${temp_html}" > /dev/null; then
+    local check_native=$(grep ${grep_option} "${check_regex}" "${temp_html}" | cut -f2 -d '"')
+  else
+    local check_native=""
+  fi
+  rm -rf "${tempdir}"
+  echo "${check_native}"
 }
 
 install () {
-  local install_type=$1
-  local version=$2
-  local install_path=$3
+  local install_type=${1}
+  local version=${2}
+  local install_path=${3}
   local platform=""
   local tempdir=""
 
@@ -34,16 +52,23 @@ install () {
   [ "Linux" = "$(uname)" ] && platform="linux" || platform="darwin"
   [ "linux" = "${platform}" ] && tempdir=$(mktemp -d asdf-kotlin.XXXX) || tempdir=$(mktemp -dt asdf-kotlin)
 
-  curl -L "${github_prefix}/download/v${version}/kotlin-compiler-${version}.zip" -o "${tempdir}/kotlin-compiler.zip"
+  echo "Trying to donload ${github_prefix}/download/v${version}/kotlin-compiler-${version}.zip to ${tempdir}/kotlin-compiler.zip"
+  curl -L  "${github_prefix}/download/v${version}/kotlin-compiler-${version}.zip" -o "${tempdir}/kotlin-compiler.zip"
+  echo "Trying to unzip ${tempdir}/kotlin-compiler.zip to ${install_path}"
   unzip -qq "${tempdir}/kotlin-compiler.zip" -d "${install_path}"
 
   local check_url="${github_prefix}/tag/v${version}"
-  local native_download_url=$(get_native_download_url $version $check_url $platform)
+  echo "Variable check_url was set to ${check_url}"
+  local native_download_url=$(get_native_download_url "${version}" "${check_url}" "${platform}")
+  echo "Variable native_download_url was set to ${native_download_url}"
   if [[ ! -z $native_download_url ]]; then
     local native_install_path="${install_path}/kotlin-native"
 
-    curl -fL "https://github.com${native_download_url}" -o "${tempdir}/kotlin-native.tar.gz" && \
-    mkdir -p "${native_install_path}" && \
+    echo "Trying to download https://github.com${native_download_url} to ${tempdir}/kotlin-native.tar.gz"
+    curl -fL "https://github.com${native_download_url}" -o "${tempdir}/kotlin-native.tar.gz"
+    echo "Creating dir ${native_install_path}"
+    mkdir -p "${native_install_path}"
+    echo "Decompressing ${tempdir}/kotlin-native.tar.gz to ${native_install_path}"
     tar -xf "${tempdir}/kotlin-native.tar.gz" --strip-components=1 --directory "${native_install_path}"
   fi
 

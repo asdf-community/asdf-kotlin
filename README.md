@@ -27,3 +27,10 @@ Feel free to create an issue or pull request if you find a bug.
 
 ## License
 MIT License
+
+## Tests
+
+**Note**: See [.travis.yml](./.travis.yml)
+
+- It tests installing a version of kotlin without kotlin native (Version 1.0.3) on mac and linux
+- It tests installing a version of kotlin with kotlin native (Version 1.3.21) on mac and linux

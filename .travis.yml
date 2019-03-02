@@ -1,5 +1,31 @@
 language: java
-script: asdf plugin-test kotlin https://github.com/missingcharacter/asdf-kotlin.git
+script:
+  - |
+    echo "Will run plugin-test"
+    asdf plugin-test kotlin https://github.com/missingcharacter/asdf-kotlin.git
+    echo "Adding kotlin and java via 'asdf plugin-add'"
+    asdf plugin-add kotlin
+    asdf plugin-add java
+    echo "Will try to install java's openjdk-11.0.1"
+    asdf install java openjdk-11.0.1
+    echo "Trying to list all versions of kotlin"
+    asdf list-all kotlin
+    echo "Will add 'java openjdk-11.0.1' to ~/.tool-versions"
+    echo "java openjdk-11.0.1" > ~/.tool-versions
+    echo "Will try to install kotlin 1.0.3 (version without kotlin native)"
+    asdf install kotlin 1.0.3
+    echo "Will try to install kotlin 1.3.21 (version with kotlin native)"
+    asdf install kotlin 1.3.21
+    echo "Setting kotlin 1.0.3 as the default value in ~/.tool-versions"
+    echo 'kotlin 1.0.3' >> ~/.tool-versions
+    echo "Confirming version 1.0.3"
+    kotlin -version 2>&1 | grep '1.0.3'
+    echo "Setting kotlin 1.3.21 as the default value in ~/.tool-versions"
+    echo "java openjdk-11.0.1" > ~/.tool-versions
+    echo 'kotlin 1.3.21' >> ~/.tool-versions
+    echo "Confirming version 1.3.21"
+    kotlin -version 2>&1 | grep '1.3.21'
+    kotlinc-native -version 2>&1 | grep '1.3.21'
 before_script:
   - git clone https://github.com/asdf-vm/asdf.git asdf
   - . asdf/asdf.sh

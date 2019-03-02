@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
 
-if [ "${KOTLIN_HOME}" = "" ] ; then
+if [[ -z ${KOTLIN_HOME:-""} ]] ; then
     export KOTLIN_HOME=${ASDF_INSTALL_PATH}/kotlinc
 fi
