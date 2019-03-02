@@ -18,7 +18,11 @@ script:
     asdf install kotlin 1.3.21
     echo "Setting kotlin 1.0.3 as the default value in ~/.tool-versions"
     echo 'kotlin 1.0.3' >> ~/.tool-versions
+    echo "Confirming version 1.0.3"
+    kotlin -version | grep '1.0.3'
     echo "Confirming version 1.3.21"
+    echo "java openjdk-11.0.1" > ~/.tool-versions
+    echo 'kotlin 1.3.21' >> ~/.tool-versions
     kotlin -version | grep '1.3.21'
     kotlinc-native -version | grep '1.3.21'
 before_script:
