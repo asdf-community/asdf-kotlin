@@ -4,8 +4,8 @@ script:
     echo "Will run plugin-test"
     asdf plugin-test kotlin https://github.com/missingcharacter/asdf-kotlin.git
     echo "Adding kotlin and java via 'asdf plugin-add'"
-    asdf plugin-add kotlin
     asdf plugin-add java
+    asdf plugin-add kotlin $TRAVIS_BUILD_DIR
     echo "Will try to install java's openjdk-11.0.1"
     asdf install java openjdk-11.0.1
     echo "Trying to list all versions of kotlin"
