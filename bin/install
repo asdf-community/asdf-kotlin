@@ -52,23 +52,16 @@ install () {
   [ "Linux" = "$(uname)" ] && platform="linux" || platform="darwin"
   [ "linux" = "${platform}" ] && tempdir=$(mktemp -d asdf-kotlin.XXXX) || tempdir=$(mktemp -dt asdf-kotlin)
 
-  echo "Trying to donload ${github_prefix}/download/v${version}/kotlin-compiler-${version}.zip to ${tempdir}/kotlin-compiler.zip"
   curl -L  "${github_prefix}/download/v${version}/kotlin-compiler-${version}.zip" -o "${tempdir}/kotlin-compiler.zip"
-  echo "Trying to unzip ${tempdir}/kotlin-compiler.zip to ${install_path}"
   unzip -qq "${tempdir}/kotlin-compiler.zip" -d "${install_path}"
 
   local check_url="${github_prefix}/tag/v${version}"
-  echo "Variable check_url was set to ${check_url}"
   local native_download_url=$(get_native_download_url "${version}" "${check_url}" "${platform}")
-  echo "Variable native_download_url was set to ${native_download_url}"
   if [[ ! -z $native_download_url ]]; then
     local native_install_path="${install_path}/kotlin-native"
 
-    echo "Trying to download https://github.com${native_download_url} to ${tempdir}/kotlin-native.tar.gz"
     curl -fL "https://github.com${native_download_url}" -o "${tempdir}/kotlin-native.tar.gz"
-    echo "Creating dir ${native_install_path}"
     mkdir -p "${native_install_path}"
-    echo "Decompressing ${tempdir}/kotlin-native.tar.gz to ${native_install_path}"
     tar -xf "${tempdir}/kotlin-native.tar.gz" --strip-components=1 --directory "${native_install_path}"
   fi
 
