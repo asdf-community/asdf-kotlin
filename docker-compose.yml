@@ -1,0 +1,11 @@
+version: '3'
+services:
+  linux-test:
+    build: .
+    container_name: asdf-kotlin-linux-test
+    tty: true
+    volumes:
+     - .:/home/build/src
+    command: [
+      "git clone https://github.com/asdf-vm/asdf.git ~/.asdf && . ~/.asdf/asdf.sh && shyaml get-values-0 script < .travis.yml | sed 's!asdf plugin-add kotlin $TRAVIS_BUILD_DIR!cp -r /home/build/src ~/.asdf/plugins/kotlin!g' | bash"
+    ]
