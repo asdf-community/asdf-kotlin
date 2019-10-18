@@ -3,7 +3,7 @@ set -euo pipefail
 IFS=$'\n\t'
 
 # Ensure dependencies are present
-if [[ ! -x $(which curl) ]] || [[ ! -x $(which tar) ]] || [[ ! -x $(which unzip) ]]; then
+if [[ ! -x $(command -v curl) ]] || [[ ! -x $(command -v tar) ]] || [[ ! -x $(command -v unzip) ]]; then
     echo "[-] Dependencies unmet.  Please verify that the following are installed and in the PATH:  curl, tar or unzip" >&2
     exit 1
 fi
@@ -57,7 +57,7 @@ install () {
 
   local check_url="${github_prefix}/tag/v${version}"
   local native_download_url=$(get_native_download_url "${version}" "${check_url}" "${platform}")
-  if [[ ! -z $native_download_url ]]; then
+  if [[ -n $native_download_url ]]; then
     local native_install_path="${install_path}/kotlin-native"
 
     curl -fL "https://github.com${native_download_url}" -o "${tempdir}/kotlin-native.tar.gz"
