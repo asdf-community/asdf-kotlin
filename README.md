@@ -1,7 +1,7 @@
-[![Build Status](https://travis-ci.org/missingcharacter/asdf-kotlin.svg?branch=master)](https://travis-ci.org/missingcharacter/asdf-kotlin)
+[![Build Status](https://travis-ci.org/asdf-community/asdf-kotlin.svg?branch=master)](https://travis-ci.org/asdf-community/asdf-kotlin)
 
 # asdf-kotlin
-kotlin (and [kotlin-native if available](https://github.com/missingcharacter/asdf-kotlin/pull/4)) plugin for [asdf version manager](https://github.com/asdf-vm/asdf)
+kotlin (and [kotlin-native if available](https://github.com/asdf-community/asdf-kotlin/pull/4)) plugin for [asdf version manager](https://github.com/asdf-vm/asdf)
 
 ## Requirements
 
@@ -10,7 +10,7 @@ kotlin (and [kotlin-native if available](https://github.com/missingcharacter/asd
 ## Install
 
 ```
-asdf plugin-add kotlin https://github.com/missingcharacter/asdf-kotlin.git
+asdf plugin-add kotlin https://github.com/asdf-community/asdf-kotlin.git
 ```
 
 ## Use
