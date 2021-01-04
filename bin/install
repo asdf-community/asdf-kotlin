@@ -21,7 +21,7 @@ get_native_download_url () {
   if [[ "${platform}" == "linux" ]]; then
     native_filename="kotlin-native-linux-\d+\.\d+\.\d+.tar.gz"
     grep_option="-P"
-    tempdir=$(mktemp -d asdf-kotlin-native.XXXX)
+    tempdir=$(mktemp -dt asdf-kotlin-native.XXXX)
   elif [[ "${platform}" == "darwin" ]]; then
     native_filename="kotlin-native-macos-\d+\.\d+\.\d+.tar.gz"
     grep_option="-E"
@@ -50,7 +50,7 @@ install () {
   local github_prefix="https://github.com/JetBrains/kotlin/releases"
 
   [ "Linux" = "$(uname)" ] && platform="linux" || platform="darwin"
-  [ "linux" = "${platform}" ] && tempdir=$(mktemp -d asdf-kotlin.XXXX) || tempdir=$(/usr/bin/mktemp -dt asdf-kotlin)
+  [ "linux" = "${platform}" ] && tempdir=$(mktemp -dt asdf-kotlin.XXXX) || tempdir=$(/usr/bin/mktemp -dt asdf-kotlin)
 
   curl -L  "${github_prefix}/download/v${version}/kotlin-compiler-${version}.zip" -o "${tempdir}/kotlin-compiler.zip"
   unzip -qq "${tempdir}/kotlin-compiler.zip" -d "${install_path}"
