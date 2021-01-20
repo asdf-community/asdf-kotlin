@@ -19,11 +19,11 @@ get_native_download_url () {
   local grep_option=""
   local native_filename=""
   if [[ "${platform}" == "linux" ]]; then
-    native_filename="kotlin-native-linux-\d+\.\d+\.\d+.tar.gz"
+    native_filename="kotlin-native-(prebuilt-)?linux-\d+\.\d+\.\d+[^.]*.tar.gz"
     grep_option="-P"
     tempdir=$(mktemp -dt asdf-kotlin-native.XXXX)
   elif [[ "${platform}" == "darwin" ]]; then
-    native_filename="kotlin-native-macos-\d+\.\d+\.\d+.tar.gz"
+    native_filename="kotlin-native-(prebuilt-)?macos-\d+\.\d+\.\d+[^.]*.tar.gz"
     grep_option="-E"
     tempdir=$(/usr/bin/mktemp -dt asdf-kotlin-native)
   fi
