@@ -5,7 +5,7 @@ kotlin (and [kotlin-native if available](https://github.com/asdf-community/asdf-
 
 ## Requirements
 
-* [Java 6 to 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html) - You may want to try [asdf-java](https://github.com/skotchpine/asdf-java) `asdf plugin-add java https://github.com/skotchpine/asdf-java`
+* [Java 6 to 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html) - You may want to try [asdf-java](https://github.com/halcyon/asdf-java) `asdf plugin-add java https://github.com/halcyon/asdf-java`
 
 ## Install
 
