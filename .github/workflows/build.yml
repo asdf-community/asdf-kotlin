@@ -26,8 +26,8 @@ jobs:
           path: kotlin
       - name: Move kotlin plugin to plugins dir
         run: |
-          mkdir -p /home/runner/.asdf/plugins/
-          mv kotlin /home/runner/.asdf/plugins/
+          mkdir -p ${HOME}/.asdf/plugins/
+          mv kotlin ${HOME}/.asdf/plugins/
       - name: Run kotlin specific tests
         run: |
           asdf plugin-add java
