@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-
 set -euo pipefail
+IFS=$'\n\t'
 
 GH_REPO="https://github.com/JetBrains/kotlin"
 TOOL_NAME="kotlin"
@@ -124,7 +124,7 @@ get_grep_options() {
     echo -n '-P'
     ;;
   macos)
-    echo -n '-E'
+    /bin/echo -n '-E'
     ;;
   esac
 }
