@@ -60,7 +60,9 @@ install_version() {
     local tool_cmd
     tool_cmd="$(echo "$TOOL_TEST" | cut -d' ' -f1)"
     test -x "${install_path}/kotlinc/bin/${tool_cmd}" || fail "Expected ${install_path}/kotlinc/bin/${tool_cmd} to be executable."
-    test -x "${install_path}/kotlin-native/bin/${tool_cmd}c-native" || fail "Expected ${install_path}/kotlin-native/bin/${tool_cmd}c-native to be executable."
+    if [[ -d "${install_path}/kotlin-native" ]]; then
+      test -x "${install_path}/kotlin-native/bin/${tool_cmd}c-native" || fail "Expected ${install_path}/kotlin-native/bin/${tool_cmd}c-native to be executable."
+    fi
 
     echo "$TOOL_NAME $version installation was successful!"
   ) || (

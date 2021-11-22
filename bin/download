@@ -8,7 +8,7 @@ plugin_dir=$(dirname "$(dirname "$current_script_path")")
 # shellcheck source=../lib/utils.bash
 source "${plugin_dir}/lib/utils.bash"
 
-mkdir -p "${ASDF_DOWNLOAD_PATH}/kotlin-native"
+mkdir -p "${ASDF_DOWNLOAD_PATH}"
 
 release_file="$ASDF_DOWNLOAD_PATH/$TOOL_NAME-$ASDF_INSTALL_VERSION.zip"
 
@@ -24,6 +24,7 @@ rm "$release_file"
 # Download native if available
 native_download_path="$(get_native_download_path)"
 if [[ -n $native_download_path ]]; then
+  mkdir -p "${ASDF_DOWNLOAD_PATH}/kotlin-native"
   native_download_url="https://github.com${native_download_path}"
   native_release_file="${ASDF_DOWNLOAD_PATH}/${TOOL_NAME}-native-${ASDF_INSTALL_VERSION}.tar.gz"
   echo "* Downloading ${TOOL_NAME}-native for release ${ASDF_INSTALL_VERSION}..."
