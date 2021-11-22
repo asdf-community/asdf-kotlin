@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:focal-20211006
 
 RUN \
   apt update && \

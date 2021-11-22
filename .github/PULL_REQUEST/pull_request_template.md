@@ -33,4 +33,3 @@
 - [ ] I have updated the documentation accordingly.
 - [ ] I have added tests to cover my changes.
 - [ ] Local linux/docker tests pass (See [README](https://github.com/asdf-community/asdf-kotlin#locally-with-docker-compose)).
-

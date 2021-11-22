@@ -2,27 +2,10 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-# Repository URL
-readonly repo="https://github.com/JetBrains/kotlin"
+current_script_path=${BASH_SOURCE[0]}
+plugin_dir=$(dirname "$(dirname "$current_script_path")")
 
-readonly VERSION_REGEX='([0-9]*)\.(.*)'
+# shellcheck source=../lib/utils.bash
+source "${plugin_dir}/lib/utils.bash"
 
-get_git_tags () {
-  local -r repo_url="$1"
-
-  local tag
-  for tag in $(git ls-remote --tags "${repo_url}"); do
-    if [[ ${tag} =~ refs/tags/v${VERSION_REGEX}$ ]]; then
-      echo "${BASH_REMATCH[1]}.${BASH_REMATCH[2]}"
-    fi
-  done \
-      | LC_ALL=C sort -t '.' -k 1,1n -k 2,2n -k 3,3n -k 4,4d -k 5,5d \
-      | tr '\n' ' '
-}
-
-list_all () {
-  echo "$(get_git_tags "${repo}")" \
-      | tr -s ' '
-}
-
-list_all
+list_all_versions | sort_versions | xargs echo

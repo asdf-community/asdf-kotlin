@@ -2,70 +2,10 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-# Ensure dependencies are present
-if [[ ! -x $(command -v curl) ]] || [[ ! -x $(command -v tar) ]] || [[ ! -x $(command -v unzip) ]]; then
-    echo "[-] Dependencies unmet.  Please verify that the following are installed and in the PATH:  curl, tar or unzip" >&2
-    exit 1
-fi
+current_script_path=${BASH_SOURCE[0]}
+plugin_dir=$(dirname "$(dirname "$current_script_path")")
 
-# the releases page version does not line up with the kotlin version
-# so fetch the native-x.y.z version from the releases page
-get_native_download_url () {
-  local version=${1}
-  local check_url=${2}
-  local platform=${3}
-  local tempdir=""
+# shellcheck source=../lib/utils.bash
+source "${plugin_dir}/lib/utils.bash"
 
-  local grep_option=""
-  local native_filename=""
-  if [[ "${platform}" == "linux" ]]; then
-    native_filename="kotlin-native-(prebuilt-)?linux-\d+\.\d+\.\d+[^.]*.tar.gz"
-    grep_option="-P"
-    tempdir=$(mktemp -dt asdf-kotlin-native.XXXX)
-  elif [[ "${platform}" == "darwin" ]]; then
-    native_filename="kotlin-native-(prebuilt-)?macos-\d+\.\d+\.\d+[^.]*.tar.gz"
-    grep_option="-E"
-    tempdir=$(/usr/bin/mktemp -dt asdf-kotlin-native)
-  fi
-
-  local check_regex="/JetBrains/kotlin/releases/download/v${version}/${native_filename}"
-  local temp_html="${tempdir}/github-kotlin-release-v${version}.html"
-  curl --disable "${check_url}" -o "${temp_html}"
-  if grep ${grep_option} "${check_regex}" "${temp_html}" > /dev/null; then
-    local check_native=$(grep ${grep_option} "${check_regex}" "${temp_html}" | cut -f2 -d '"')
-  else
-    local check_native=""
-  fi
-  rm -rf "${tempdir}"
-  echo "${check_native}"
-}
-
-install () {
-  local install_type=${1}
-  local version=${2}
-  local install_path=${3}
-  local platform=""
-  local tempdir=""
-
-  local github_prefix="https://github.com/JetBrains/kotlin/releases"
-
-  [ "Linux" = "$(uname)" ] && platform="linux" || platform="darwin"
-  [ "linux" = "${platform}" ] && tempdir=$(mktemp -dt asdf-kotlin.XXXX) || tempdir=$(/usr/bin/mktemp -dt asdf-kotlin)
-
-  curl -L  "${github_prefix}/download/v${version}/kotlin-compiler-${version}.zip" -o "${tempdir}/kotlin-compiler.zip"
-  unzip -qq "${tempdir}/kotlin-compiler.zip" -d "${install_path}"
-
-  local check_url="${github_prefix}/tag/v${version}"
-  local native_download_url=$(get_native_download_url "${version}" "${check_url}" "${platform}")
-  if [[ -n $native_download_url ]]; then
-    local native_install_path="${install_path}/kotlin-native"
-
-    curl -fL "https://github.com${native_download_url}" -o "${tempdir}/kotlin-native.tar.gz"
-    mkdir -p "${native_install_path}"
-    tar -xf "${tempdir}/kotlin-native.tar.gz" --strip-components=1 --directory "${native_install_path}"
-  fi
-
-  rm -rf "${tempdir}"
-}
-
-install "${ASDF_INSTALL_TYPE}" "${ASDF_INSTALL_VERSION}" "${ASDF_INSTALL_PATH}"
+install_version "$ASDF_INSTALL_TYPE" "$ASDF_INSTALL_VERSION" "$ASDF_INSTALL_PATH"

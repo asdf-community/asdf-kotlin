@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
+
+current_script_path=${BASH_SOURCE[0]}
+plugin_dir=$(dirname "$(dirname "$current_script_path")")
+
+# shellcheck source=../lib/utils.bash
+source "${plugin_dir}/lib/utils.bash"
+
+mkdir -p "${ASDF_DOWNLOAD_PATH}"
+
+release_file="$ASDF_DOWNLOAD_PATH/$TOOL_NAME-$ASDF_INSTALL_VERSION.zip"
+
+# Download compressed file to the download directory
+download_release "$ASDF_INSTALL_VERSION" "$release_file"
+
+# Extract contents of zip file into the download directory
+unzip -qq "$release_file" -d "$ASDF_DOWNLOAD_PATH" || fail "Could not extract $release_file"
+
+# Remove the tar.gz file since we don't need to keep it
+rm "$release_file"
+
+# Download native if available
+native_download_path="$(get_native_download_path)"
+if [[ -n $native_download_path ]]; then
+  mkdir -p "${ASDF_DOWNLOAD_PATH}/kotlin-native"
+  native_download_url="https://github.com${native_download_path}"
+  native_release_file="${ASDF_DOWNLOAD_PATH}/${TOOL_NAME}-native-${ASDF_INSTALL_VERSION}.tar.gz"
+  echo "* Downloading ${TOOL_NAME}-native for release ${ASDF_INSTALL_VERSION}..."
+  curl "${curl_opts[@]}" -o "${native_release_file}" -C - \
+    "${native_download_url}" || fail "Could not download ${native_download_url}"
+  tar -xf "${native_release_file}" --strip-components=1 \
+    --directory "${ASDF_DOWNLOAD_PATH}/kotlin-native" || fail "Could not extract ${native_release_file}"
+  rm "${native_release_file}"
+fi
