@@ -1,43 +1,79 @@
-[![Build Status](https://travis-ci.org/asdf-community/asdf-kotlin.svg?branch=master)](https://travis-ci.org/asdf-community/asdf-kotlin)
+<div align="center">
+
+# asdf-kotlin [![Build](https://github.com/asdf-community/asdf-kotlin/actions/workflows/build.yml/badge.svg)](https://github.com/asdf-community/asdf-kotlin/actions/workflows/build.yml) [![Lint](https://github.com/asdf-community/asdf-kotlin/actions/workflows/lint.yml/badge.svg)](https://github.com/asdf-community/asdf-kotlin/actions/workflows/lint.yml)
 
 # asdf-kotlin
 kotlin (and [kotlin-native if available](https://github.com/asdf-community/asdf-kotlin/pull/4)) plugin for [asdf version manager](https://github.com/asdf-vm/asdf)
 
-## Requirements
+</div>
 
-* [Java 6 to 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html) - You may want to try [asdf-java](https://github.com/halcyon/asdf-java) `asdf plugin-add java https://github.com/halcyon/asdf-java`
+# Contents
 
-## Install
+- [Dependencies](#dependencies)
+- [Install](#install)
+- [Contributing](#contributing)
+- [Issues](#issues)
+- [License](#license)
+- [Tests](#tests)
 
+# Dependencies
+
+- `curl`, `tar`, `unzip`: generic POSIX utilities.
+- [Java 6 to 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html) - You may want to try [asdf-java](https://github.com/halcyon/asdf-java) `asdf plugin-add java https://github.com/halcyon/asdf-java`
+
+# Install
+
+Plugin:
+
+```shell
+asdf plugin add kotlin
+# or
+asdf plugin add kotlin https://github.com/asdf-community/asdf-kotlin.git
 ```
-asdf plugin-add kotlin https://github.com/asdf-community/asdf-kotlin.git
-```
 
-## Use
+kotlin:
+
+```shell
+# Show all installable versions
+asdf list-all kotlin
+
+# Install specific version
+asdf install kotlin latest
+
+# Set a version globally (on your ~/.tool-versions file)
+asdf global kotlin latest
+
+# Now kotlin commands are available
+kotlin -help
+```
 
 Check the [asdf](https://github.com/asdf-vm/asdf) readme for instructions on how to install & manage versions of kotlin.
 
-## Contributing
+# Contributing
 
-Feel free to create an issue or pull request if you find a bug.
+Contributions of any kind welcome! See the [contributing guide](contributing.md).
 
-## Issues
+[Thanks goes to these contributors](https://github.com/asdf-community/asdf-kotlin/graphs/contributors)!
 
-* Doesn't check if java is installed
+# Issues
 
-## License
+- Doesn't check if java is installed
+
+# License
 MIT License
 
-## Tests
+# Tests
 
-### Travis CI
+## Github Actions
 
-**Note**: See [.travis.yml](./.travis.yml)
+**Note**: See [workflows](./.github/workflows)
 
 - It tests installing a version of kotlin without kotlin native (Version 1.0.3) on mac and linux
 - It tests installing a version of kotlin with kotlin native (Version 1.3.21) on mac and linux
+- It tests installing a version of kotlin with new kotlin native naming (Version 1.4.30-RC) on mac and linux
+- It tests installing a version of kotling with new kotlin native naming that includes arch (Version 1.5.30-M1) on mac and linux
 
-### Locally with Docker Compose
+## Locally with Docker Compose
 
 **Note**: Only tests linux (Ubuntu 18.04) and takes a while since it builds on every run
 

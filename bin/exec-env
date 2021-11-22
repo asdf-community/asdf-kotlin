@@ -2,6 +2,6 @@
 set -eo pipefail
 IFS=$'\n\t'
 
-if [[ -z ${KOTLIN_HOME:-""} ]] ; then
-    export KOTLIN_HOME=${ASDF_INSTALL_PATH}/kotlinc
+if [[ -z ${KOTLIN_HOME:-""} ]]; then
+  export KOTLIN_HOME=${ASDF_INSTALL_PATH}/kotlinc
 fi
