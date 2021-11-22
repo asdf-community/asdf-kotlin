@@ -7,5 +7,5 @@ services:
     volumes:
      - .:/home/build/src
     command: [
-      "git clone https://github.com/asdf-vm/asdf.git ~/.asdf && . ~/.asdf/asdf.sh && cp -r /home/build/src ~/.asdf/plugins/kotlin && shyaml get-value jobs.plugin_test.steps.1.run < .github/workflows/build.yml | bash"
+      "git clone https://github.com/asdf-vm/asdf.git ~/.asdf && . ~/.asdf/asdf.sh && cp -r /home/build/src ~/.asdf/plugins/kotlin && shyaml get-value jobs.plugin_test.steps.3.run < .github/workflows/build.yml | bash"
     ]
