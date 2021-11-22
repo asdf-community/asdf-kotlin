@@ -81,7 +81,7 @@ get_native_download_path() {
   local temp_html="${tempdir}/github-kotlin.html"
   curl -s --disable "${check_url}" -o "${temp_html}"
   local native_download_path=""
-  if grep ${grep_option} "${check_regex}" "${temp_html}" >/dev/null; then
+  if grep -q ${grep_option} "${check_regex}" "${temp_html}"; then
     native_download_path=$(grep ${grep_option} "${check_regex}" "${temp_html}" | cut -f2 -d '"')
   fi
   rm -rf "${tempdir}"
