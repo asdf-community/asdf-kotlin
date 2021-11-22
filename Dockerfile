@@ -2,7 +2,7 @@ FROM ubuntu:focal-20211006
 
 RUN \
   apt update && \
-  apt install -y git curl unzip python3-pip && \
+  apt install -y git curl rsync unzip python3-pip && \
   pip3 install shyaml && \
   useradd --create-home --shell /bin/bash build && \
   mkdir -p /home/build/src && \
