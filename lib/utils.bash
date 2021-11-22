@@ -95,7 +95,7 @@ get_kernel() {
     echo -n 'linux'
     ;;
   Darwin)
-    echo -n 'darwin'
+    echo -n 'macos'
     ;;
   *)
     fail "Sorry, ${kernel_name} is not supported."
@@ -123,7 +123,7 @@ get_grep_options() {
   linux)
     echo -n '-P'
     ;;
-  darwin)
+  macos)
     echo -n '-E'
     ;;
   esac
@@ -138,7 +138,7 @@ create_temp_dir() {
   linux)
     echo -n "$(mktemp -dt asdf-kotlin-native.XXXX)"
     ;;
-  darwin)
+  macos)
     echo -n "$(/usr/bin/mktemp -dt asdf-kotlin-native)"
     ;;
   esac
