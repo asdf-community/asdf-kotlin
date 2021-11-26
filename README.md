@@ -2,7 +2,6 @@
 
 # asdf-kotlin [![Build](https://github.com/asdf-community/asdf-kotlin/actions/workflows/build.yml/badge.svg)](https://github.com/asdf-community/asdf-kotlin/actions/workflows/build.yml) [![Lint](https://github.com/asdf-community/asdf-kotlin/actions/workflows/lint.yml/badge.svg)](https://github.com/asdf-community/asdf-kotlin/actions/workflows/lint.yml)
 
-# asdf-kotlin
 kotlin (and [kotlin-native if available](https://github.com/asdf-community/asdf-kotlin/pull/4)) plugin for [asdf version manager](https://github.com/asdf-vm/asdf)
 
 </div>
