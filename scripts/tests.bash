@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -xeo pipefail
+set -eo pipefail
 IFS=$'\n\t'
 
 JAVA_VERSION='openjdk-11.0.1'
