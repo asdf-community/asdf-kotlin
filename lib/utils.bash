@@ -74,7 +74,7 @@ install_version() {
 # the releases page version does not line up with the kotlin version
 # so fetch the native-x.y.z version from the releases page
 get_native_download_path() {
-  local check_url="${GH_REPO}/releases/tag/v${ASDF_INSTALL_VERSION}"
+  local check_url="${GH_REPO}/releases/expanded_assets/v${ASDF_INSTALL_VERSION}"
   local grep_option="$(get_grep_options)"
   local tempdir="$(create_temp_dir)"
   local check_regex="/JetBrains/kotlin/releases/download/v${ASDF_INSTALL_VERSION}/$(get_native_regex_pattern)"

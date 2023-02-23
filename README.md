@@ -74,10 +74,10 @@ MIT License
 
 ## Locally with Docker Compose
 
-**Note**: Only tests linux (Ubuntu 18.04) and takes a while since it builds on every run
+**Note**: Only tests linux (Ubuntu 22.04) and takes a while since it builds on every run
 
 - `cd /path/to/this/repo`
-- `docker-compose up --force-recreate`
+- `docker compose up --force-recreate --abort-on-container-exit`
 
 ```bash
 Creating asdf-kotlin-linux-test ... done

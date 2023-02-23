@@ -1,4 +1,4 @@
-FROM ubuntu:focal-20211006
+FROM ubuntu:jammy-20230126
 
 RUN \
   apt update && \

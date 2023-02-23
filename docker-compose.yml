@@ -22,5 +22,5 @@ services:
     volumes:
      - .:/home/build/src
     command: [
-      "git clone https://github.com/asdf-vm/asdf.git ~/.asdf && . ~/.asdf/asdf.sh && mkdir -p ~/.asdf/plugins/kotlin && rsync -a /home/build/src/ ~/.asdf/plugins/kotlin/ && bash ~/.asdf/plugins/kotlin/scripts/tests.bash"
+      "git clone https://github.com/asdf-vm/asdf.git ~/.asdf && . ~/.asdf/asdf.sh && mkdir -p ~/.asdf/plugins/kotlin && rsync -a /home/build/src/ ~/.asdf/plugins/kotlin/ && bash -x ~/.asdf/plugins/kotlin/scripts/tests.bash"
     ]
