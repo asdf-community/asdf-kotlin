@@ -104,7 +104,7 @@ function confirm_kotlin_version() {
     if [[ "${KOTLIN_VERSION}" == '1.3.21' ]]; then
       grep '^Kotlin/Native: 1.1.2' <("${KOTLINC_ARGS[@]}" 2>&1)
     else
-      grep "^Kotlin/Native: ${KOTLIN_VERSION}" <("${KOTLINC_ARGS[@]}" 2>&1)
+      grep -i "^Kotlin/Native: ${KOTLIN_VERSION}" <("${KOTLINC_ARGS[@]}" 2>&1)
     fi
   fi
 }
