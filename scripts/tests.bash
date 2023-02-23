@@ -99,7 +99,7 @@ function confirm_kotlin_version() {
   msg_warn 'Printing kotlin binary used when called'
   type -P kotlin
   msg_warn "Confirming version ${KOTLIN_VERSION}"
-  grep "${KOTLIN_VERSION}" <("${KOTLIN_ARGS[@]}" 2>&1)
+  grep "^Kotlin version ${KOTLIN_VERSION}" <("${KOTLIN_ARGS[@]}" 2>&1)
   if [[ "${KOTLIN_VERSION}" != '1.0.3' ]]; then
     grep "${KOTLIN_VERSION}" <("${KOTLINC_ARGS[@]}" 2>&1)
   fi
