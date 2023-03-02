@@ -1,3 +1,4 @@
+---
 version: '3'
 services:
   no-direnv:
@@ -8,9 +9,9 @@ services:
     environment:
       USE_DIRENV: 'no'
     volumes:
-     - .:/home/build/src
+      - .:/home/build/src
     command:
-      - |
+      - |-
         git clone https://github.com/asdf-vm/asdf.git ~/.asdf && \
           . ~/.asdf/asdf.sh && \
           mkdir -p ~/.asdf/plugins/kotlin && \
@@ -24,9 +25,9 @@ services:
     environment:
       USE_DIRENV: 'yes'
     volumes:
-     - .:/home/build/src
+      - .:/home/build/src
     command:
-      - |
+      - |-
         git clone https://github.com/asdf-vm/asdf.git ~/.asdf && \
         . ~/.asdf/asdf.sh && \
         mkdir -p ~/.asdf/plugins/kotlin && \

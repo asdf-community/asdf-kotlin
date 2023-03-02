@@ -1,0 +1,6 @@
+[tool.yamlfix]
+line_length = 80
+comments_min_spaces_from_content = 1
+flow_style_sequence = false
+sequence_style = "keep_style"
+preserve_quotes = true

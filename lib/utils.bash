@@ -74,22 +74,23 @@ install_version() {
 # the releases page version does not line up with the kotlin version
 # so fetch the native-x.y.z version from the releases page
 get_native_download_path() {
+  local check_regex grep_option tempdir native_download_path=""
   local check_url="${GH_REPO}/releases/expanded_assets/v${ASDF_INSTALL_VERSION}"
-  local grep_option="$(get_grep_options)"
-  local tempdir="$(create_temp_dir)"
-  local check_regex="/JetBrains/kotlin/releases/download/v${ASDF_INSTALL_VERSION}/$(get_native_regex_pattern)"
+  grep_option="$(get_grep_options)"
+  tempdir="$(create_temp_dir)"
+  check_regex="/JetBrains/kotlin/releases/download/v${ASDF_INSTALL_VERSION}/$(get_native_regex_pattern)"
   local temp_html="${tempdir}/github-kotlin.html"
   curl -s --disable "${check_url}" -o "${temp_html}"
-  local native_download_path=""
-  if grep -q ${grep_option} "${check_regex}" "${temp_html}"; then
-    native_download_path=$(grep ${grep_option} "${check_regex}" "${temp_html}" | cut -f2 -d '"')
+  if grep -q "${grep_option}" "${check_regex}" "${temp_html}"; then
+    native_download_path="$(grep "${grep_option}" "${check_regex}" "${temp_html}" | cut -f2 -d '"')"
   fi
   rm -rf "${tempdir}"
   echo "${native_download_path}"
 }
 
 get_kernel() {
-  local kernel_name="$(uname)"
+  local kernel_name
+  kernel_name="$(uname)"
   case "${kernel_name}" in
   Linux)
     echo -n 'linux'
@@ -104,7 +105,8 @@ get_kernel() {
 }
 
 get_arch() {
-  local machine_hw_name="$(uname -m)"
+  local machine_hw_name
+  machine_hw_name="$(uname -m)"
   case "${machine_hw_name}" in
   x86_64)
     echo -n 'x86_64'
