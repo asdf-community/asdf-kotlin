@@ -1,5 +1,5 @@
+---
 name: Build
-
 on:
   schedule:
     - cron: "0 23 * * 1"
@@ -7,7 +7,6 @@ on:
     branches:
       - master
   pull_request:
-
 jobs:
   plugin_test:
     name: asdf plugin test
@@ -17,8 +16,8 @@ jobs:
           - ubuntu-latest
           - macos-latest
         direnv:
-          - yes
-          - no
+          - 'yes'
+          - 'no'
     runs-on: ${{ matrix.os }}
     steps:
       - name: asdf_plugin_test
@@ -40,5 +39,5 @@ jobs:
       - name: Run kotlin specific tests
         env:
           USE_DIRENV: ${{ matrix.direnv }}
-        run: |
+        run: |-
           bash ${HOME}/.asdf/plugins/kotlin/scripts/tests.bash

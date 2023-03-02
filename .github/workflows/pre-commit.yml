@@ -1,0 +1,27 @@
+---
+name: Run pre-commit
+on:
+  push:
+    branches: [develop, master, main]
+  pull_request:
+jobs:
+  pre-commit:
+    name: Run pre-commit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install asdf dependencies
+        uses: asdf-vm/actions/install@v1.1.0
+      - name: Setup python
+        uses: actions/setup-python@v3
+      - uses: azure/setup-helm@v3
+        with:
+          version: 3.11.0
+        id: install
+      - name: Install tools
+        shell: bash
+        run: |
+          bash -x ./scripts/github_actions-install_tools.bash
+      - name: run pre-commit
+        uses: pre-commit/action@v2.0.3

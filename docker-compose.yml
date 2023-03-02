@@ -1,3 +1,4 @@
+---
 version: '3'
 services:
   no-direnv:
@@ -8,10 +9,14 @@ services:
     environment:
       USE_DIRENV: 'no'
     volumes:
-     - .:/home/build/src
-    command: [
-      "git clone https://github.com/asdf-vm/asdf.git ~/.asdf && . ~/.asdf/asdf.sh && mkdir -p ~/.asdf/plugins/kotlin && rsync -a /home/build/src/ ~/.asdf/plugins/kotlin/ && bash ~/.asdf/plugins/kotlin/scripts/tests.bash"
-    ]
+      - .:/home/build/src
+    command:
+      - |-
+        git clone https://github.com/asdf-vm/asdf.git ~/.asdf && \
+          . ~/.asdf/asdf.sh && \
+          mkdir -p ~/.asdf/plugins/kotlin && \
+          rsync -a /home/build/src/ ~/.asdf/plugins/kotlin/ && \
+          bash ~/.asdf/plugins/kotlin/scripts/tests.bash
   with-direnv:
     build: .
     container_name: asdf-kotlin-with-direnv
@@ -20,7 +25,11 @@ services:
     environment:
       USE_DIRENV: 'yes'
     volumes:
-     - .:/home/build/src
-    command: [
-      "git clone https://github.com/asdf-vm/asdf.git ~/.asdf && . ~/.asdf/asdf.sh && mkdir -p ~/.asdf/plugins/kotlin && rsync -a /home/build/src/ ~/.asdf/plugins/kotlin/ && bash -x ~/.asdf/plugins/kotlin/scripts/tests.bash"
-    ]
+      - .:/home/build/src
+    command:
+      - |-
+        git clone https://github.com/asdf-vm/asdf.git ~/.asdf && \
+        . ~/.asdf/asdf.sh && \
+        mkdir -p ~/.asdf/plugins/kotlin && \
+        rsync -a /home/build/src/ ~/.asdf/plugins/kotlin/ && \
+        bash -x ~/.asdf/plugins/kotlin/scripts/tests.bash
