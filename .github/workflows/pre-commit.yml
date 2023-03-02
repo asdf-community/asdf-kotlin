@@ -24,4 +24,4 @@ jobs:
         run: |
           bash -x ./scripts/github_actions-install_tools.bash
       - name: run pre-commit
-        uses: pre-commit/action@v2.0.3
+        uses: pre-commit/action@v3.0.0
