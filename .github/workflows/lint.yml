@@ -12,7 +12,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Install asdf dependencies
-        uses: asdf-vm/actions/install@v1.1.0
+        uses: asdf-vm/actions/install@v2.0.0
       - name: Run ShellCheck
         run: scripts/shellcheck.bash
   shellfmt:
@@ -21,7 +21,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Install asdf dependencies
-        uses: asdf-vm/actions/install@v1.1.0
+        uses: asdf-vm/actions/install@v2.0.0
       - name: List file to shfmt
         run: shfmt -f .
       - name: Run shfmt
