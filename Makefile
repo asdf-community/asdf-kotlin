@@ -10,5 +10,5 @@ format-check:
 .PHONY: format-check
 
 lint:
-	shellcheck -x $(SRCFILES)
+	shellcheck $(SRCFILES)
 .PHONY: lint
