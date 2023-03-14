@@ -25,14 +25,14 @@ function retry_command() {
 
 function get_arch() {
   case "$(uname -m)" in
-  armv5*) echo -n "armv5" ;;
-  armv6*) echo -n "armv6" ;;
-  armv7*) echo -n "armv7" ;;
-  aarch64) echo -n "arm64" ;;
-  x86) echo -n "386" ;;
-  x86_64) echo -n "amd64" ;;
-  i686) echo -n "386" ;;
-  i386) echo -n "386" ;;
+    armv5*) echo -n "armv5" ;;
+    armv6*) echo -n "armv6" ;;
+    armv7*) echo -n "armv7" ;;
+    aarch64) echo -n "arm64" ;;
+    x86) echo -n "386" ;;
+    x86_64) echo -n "amd64" ;;
+    i686) echo -n "386" ;;
+    i386) echo -n "386" ;;
   esac
 }
 
@@ -40,16 +40,16 @@ function get_os() {
   local kernel_name
   kernel_name="$(uname)"
   case "${kernel_name}" in
-  Linux)
-    echo -n 'linux'
-    ;;
-  Darwin)
-    echo -n 'macos'
-    ;;
-  *)
-    echo "Sorry, ${kernel_name} is not supported." >&2
-    exit 1
-    ;;
+    Linux)
+      echo -n 'linux'
+      ;;
+    Darwin)
+      echo -n 'macos'
+      ;;
+    *)
+      echo "Sorry, ${kernel_name} is not supported." >&2
+      exit 1
+      ;;
   esac
 }
 
