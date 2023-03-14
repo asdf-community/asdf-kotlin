@@ -14,7 +14,7 @@ fail() {
 curl_opts=(-fsSL)
 
 # NOTE: You might want to remove this if kotlin is not hosted on GitHub releases.
-if [ -n "${GITHUB_API_TOKEN:-}" ]; then
+if [ -n "${GITHUB_API_TOKEN-}" ]; then
   curl_opts=("${curl_opts[@]}" -H "Authorization: token $GITHUB_API_TOKEN")
 fi
 
@@ -92,15 +92,15 @@ get_kernel() {
   local kernel_name
   kernel_name="$(uname)"
   case "${kernel_name}" in
-  Linux)
-    echo -n 'linux'
-    ;;
-  Darwin)
-    echo -n 'macos'
-    ;;
-  *)
-    fail "Sorry, ${kernel_name} is not supported."
-    ;;
+    Linux)
+      echo -n 'linux'
+      ;;
+    Darwin)
+      echo -n 'macos'
+      ;;
+    *)
+      fail "Sorry, ${kernel_name} is not supported."
+      ;;
   esac
 }
 
@@ -108,26 +108,26 @@ get_arch() {
   local machine_hw_name
   machine_hw_name="$(uname -m)"
   case "${machine_hw_name}" in
-  x86_64)
-    echo -n 'x86_64'
-    ;;
-  aarch64 | arm64)
-    echo -n 'aarch64'
-    ;;
-  *)
-    fail "Sorry, ${machine_hw_name} is not supported."
-    ;;
+    x86_64)
+      echo -n 'x86_64'
+      ;;
+    aarch64 | arm64)
+      echo -n 'aarch64'
+      ;;
+    *)
+      fail "Sorry, ${machine_hw_name} is not supported."
+      ;;
   esac
 }
 
 get_grep_options() {
   case "$(get_kernel)" in
-  linux)
-    echo -n '-P'
-    ;;
-  macos)
-    /bin/echo -n '-E'
-    ;;
+    linux)
+      echo -n '-P'
+      ;;
+    macos)
+      /bin/echo -n '-E'
+      ;;
   esac
 }
 
@@ -137,11 +137,11 @@ get_native_regex_pattern() {
 
 create_temp_dir() {
   case "$(get_kernel)" in
-  linux)
-    echo -n "$(mktemp -dt asdf-kotlin-native.XXXX)"
-    ;;
-  macos)
-    echo -n "$(/usr/bin/mktemp -dt asdf-kotlin-native)"
-    ;;
+    linux)
+      echo -n "$(mktemp -dt asdf-kotlin-native.XXXX)"
+      ;;
+    macos)
+      echo -n "$(/usr/bin/mktemp -dt asdf-kotlin-native)"
+      ;;
   esac
 }

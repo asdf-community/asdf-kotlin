@@ -90,7 +90,7 @@ function set_kotlin_version() {
 function confirm_kotlin_version() {
   local KOTLIN_VERSION="${1}"
   declare -a KOTLIN_ARGS=('kotlin' '-version') KOTLINC_ARGS=('kotlinc-native' '-version')
-  if [[ "${USE_DIRENV}" == 'yes' ]]; then
+  if [[ ${USE_DIRENV} == 'yes' ]]; then
     KOTLIN_ARGS=('asdf' 'direnv' 'shell' 'kotlin' "${KOTLIN_VERSION}" '--' 'kotlin' '-version')
     KOTLINC_ARGS=('asdf' 'direnv' 'shell' 'kotlinc-native' "${KOTLIN_VERSION}" '--' 'kotlinc-native' '-version')
   fi
@@ -100,8 +100,8 @@ function confirm_kotlin_version() {
   type -P kotlin
   msg_warn "Confirming version ${KOTLIN_VERSION}"
   grep "^Kotlin version ${KOTLIN_VERSION}" <("${KOTLIN_ARGS[@]}" 2>&1)
-  if [[ "${KOTLIN_VERSION}" != '1.0.3' ]]; then
-    if [[ "${KOTLIN_VERSION}" == '1.3.21' ]]; then
+  if [[ ${KOTLIN_VERSION} != '1.0.3' ]]; then
+    if [[ ${KOTLIN_VERSION} == '1.3.21' ]]; then
       grep '^Kotlin/Native: 1.1.2' <("${KOTLINC_ARGS[@]}" 2>&1)
     else
       grep -i "^Kotlin/Native: ${KOTLIN_VERSION}" <("${KOTLINC_ARGS[@]}" 2>&1)
@@ -112,7 +112,7 @@ function confirm_kotlin_version() {
 function test_kotlin_version() {
   local KOTLIN_VERSION="${1}"
   set_kotlin_version "${KOTLIN_VERSION}"
-  if [[ "${USE_DIRENV}" == 'yes' ]]; then
+  if [[ ${USE_DIRENV} == 'yes' ]]; then
     clear_direnv_cache
   fi
   msg_warn "java version is $(java -version)"
@@ -121,17 +121,17 @@ function test_kotlin_version() {
 
 while [[ $# -gt 0 ]]; do
   case "${1}" in
-  -d | --use-direnv)
-    USE_DIRENV='yes'
-    shift # past argument
-    ;;
-  -h | --help)
-    usage
-    ;;
-  -*)
-    echo "Unknown option ${1}"
-    usage
-    ;;
+    -d | --use-direnv)
+      USE_DIRENV='yes'
+      shift # past argument
+      ;;
+    -h | --help)
+      usage
+      ;;
+    -*)
+      echo "Unknown option ${1}"
+      usage
+      ;;
   esac
 done
 
@@ -148,15 +148,15 @@ msg_info "USE_DIRENV is ${USE_DIRENV}"
 msg_info "GITHUB_REF_NAME is ${GITHUB_REF_NAME}"
 msg_info "GITHUB_SHA is ${GITHUB_SHA}"
 msg_info "GITHUB_ACTIONS is ${GITHUB_ACTIONS}"
-if [[ "${GITHUB_ACTIONS}" == 'true' ]]; then
+if [[ ${GITHUB_ACTIONS} == 'true' ]]; then
   msg_info "GITHUB_RUN_NUMBER is ${GITHUB_RUN_NUMBER}"
   msg_info "GITHUB_RUN_ATTEMPT is ${GITHUB_RUN_ATTEMPT}"
 fi
 
-if [[ "${GITHUB_ACTIONS}" != 'true' ]]; then
+if [[ ${GITHUB_ACTIONS} != 'true' ]]; then
   install_requirements
 fi
-if [[ "${USE_DIRENV}" == 'yes' ]]; then
+if [[ ${USE_DIRENV} == 'yes' ]]; then
   setup_asdf_direnv
 fi
 msg_warn 'Trying to list all versions of kotlin'

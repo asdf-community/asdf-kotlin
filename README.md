@@ -2,7 +2,7 @@
 <!-- markdownlint-disable MD033 MD013 -->
 <div align="center">
 
-# asdf-kotlin [![Build](https://github.com/asdf-community/asdf-kotlin/actions/workflows/build.yml/badge.svg)](https://github.com/asdf-community/asdf-kotlin/actions/workflows/build.yml) [![Lint](https://github.com/asdf-community/asdf-kotlin/actions/workflows/lint.yml/badge.svg)](https://github.com/asdf-community/asdf-kotlin/actions/workflows/lint.yml)
+# asdf-kotlin [![Build](https://github.com/asdf-community/asdf-kotlin/actions/workflows/build.yml/badge.svg)](https://github.com/asdf-community/asdf-kotlin/actions/workflows/build.yml)
 
 kotlin (and [kotlin-native if available](https://github.com/asdf-community/asdf-kotlin/pull/4)) plugin for [asdf version manager](https://github.com/asdf-vm/asdf)
 
@@ -87,7 +87,7 @@ MIT License
 ## Locally with Docker Compose
 
 **Note**: Only tests linux (Ubuntu `22.04`) and takes a while since it builds
-          on every run
+on every run
 
 - `cd /path/to/this/repo`
 - `docker compose up --force-recreate --abort-on-container-exit`
