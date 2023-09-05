@@ -1,7 +1,7 @@
 ---
 repos:
   - repo: https://github.com/lyz-code/yamlfix/
-    rev: 1.9.0
+    rev: 1.13.0
     hooks:
       - id: yamlfix
   - repo: https://github.com/Yelp/detect-secrets
@@ -26,10 +26,10 @@ repos:
       - id: check-toml
       - id: mixed-line-ending
   - repo: https://github.com/gruntwork-io/pre-commit
-    rev: v0.1.18
+    rev: v0.1.22
     hooks:
       - id: shellcheck
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.33.0
+    rev: v0.36.0
     hooks:
       - id: markdownlint-fix
