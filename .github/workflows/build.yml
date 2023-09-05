@@ -29,15 +29,15 @@ jobs:
           distribution: 'temurin'
           java-version: '8'
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: kotlin
       - name: Move kotlin plugin to plugins dir
         run: |
-          mkdir -p ${HOME}/.asdf/plugins/
-          mv kotlin ${HOME}/.asdf/plugins/
+          mkdir -p "${HOME}/.asdf/plugins/"
+          mv kotlin "${HOME}/.asdf/plugins/"
       - name: Run kotlin specific tests
         env:
           USE_DIRENV: ${{ matrix.direnv }}
         run: |-
-          bash ${HOME}/.asdf/plugins/kotlin/scripts/tests.bash
+          bash "${HOME}/.asdf/plugins/kotlin/scripts/tests.bash"
