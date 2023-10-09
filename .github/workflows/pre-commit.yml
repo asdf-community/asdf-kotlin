@@ -12,7 +12,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Install asdf dependencies
-        uses: asdf-vm/actions/install@v2
+        uses: asdf-vm/actions/install@v3
       - name: Setup python
         uses: actions/setup-python@v4
       - uses: azure/setup-helm@v3
