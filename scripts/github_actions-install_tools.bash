@@ -53,10 +53,38 @@ function get_os() {
   esac
 }
 
+function get_latest_github_tag() {
+  local owner="${1}"
+  local repo="${2}"
+  local remove_v="${3:-false}"
+  local latest_tag
+  latest_tag="$(curl -s "https://api.github.com/repos/${owner}/${repo}/releases/latest" | jq -r .tag_name)"
+  if [[ "${remove_v}" == 'true' ]]; then
+    echo -n "${latest_tag}" | tr -d 'v'
+    return 0
+  fi
+  echo -n "${latest_tag}"
+}
+
+OS="$(get_os)"
+
 retry=3
 
 echo "Install detect-secrets"
 
 retry_command "${retry}" 'bash' '-c' 'pip install detect-secrets'
+
+echo "Install shellcheck"
+SHELLCHECK_VERSION="$(get_latest_github_tag 'koalaman' 'shellcheck' 'true')"
+wget -qO- "https://github.com/koalaman/shellcheck/releases/download/v${SHELLCHECK_VERSION}/shellcheck-v${SHELLCHECK_VERSION}.${OS}.$(uname -m).tar.xz" | tar -xJf -
+mv "shellcheck-v${SHELLCHECK_VERSION}/shellcheck" /usr/local/bin
+rm -rf "shellcheck-v${SHELLCHECK_VERSION}"
+
+echo "Install actionlint"
+mkdir actionlint-download
+ACTIONLINT_VERSION="$(get_latest_github_tag 'rhysd' 'actionlint' 'true')"
+wget -qO- "https://github.com/rhysd/actionlint/releases/download/v${ACTIONLINT_VERSION}/actionlint_${ACTIONLINT_VERSION}_${OS}_$(get_arch).tar.gz" | tar -C actionlint-download -xzf -
+mv actionlint-download/actionlint /usr/local/bin
+rm -rf actionlint-download
 
 hash -r
