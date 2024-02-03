@@ -1,7 +1,7 @@
 ---
 repos:
   - repo: https://github.com/lyz-code/yamlfix/
-    rev: 1.13.0
+    rev: 1.16.0
     hooks:
       - id: yamlfix
   - repo: https://github.com/Yelp/detect-secrets
@@ -13,23 +13,29 @@ repos:
           - .secrets.baseline
         exclude: package.lock.json
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v4.5.0
     hooks:
-      - id: check-merge-conflict
-      - id: detect-private-key
-      - id: end-of-file-fixer
-      - id: trailing-whitespace
-      - id: pretty-format-json
-        args: [--autofix]
+      - id: check-case-conflict
       - id: check-executables-have-shebangs
+      - id: check-merge-conflict
       - id: check-shebang-scripts-are-executable
       - id: check-toml
+      - id: detect-private-key
+      - id: end-of-file-fixer
       - id: mixed-line-ending
+      - id: trailing-whitespace
+      - id: pretty-format-json
+        args:
+          - --autofix
   - repo: https://github.com/gruntwork-io/pre-commit
-    rev: v0.1.22
+    rev: v0.1.23
     hooks:
       - id: shellcheck
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.36.0
+    rev: v0.39.0
     hooks:
       - id: markdownlint-fix
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.6.26
+    hooks:
+      - id: actionlint-system

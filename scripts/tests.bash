@@ -169,8 +169,13 @@ msg_info 'Will try to install kotlin 1.4.30-RC (version with new kotlin native n
 asdf install kotlin '1.4.30-RC'
 msg_info 'Will try to install kotlin 1.5.30-M1 (version with MacOS aarch64 kotlin native)'
 asdf install kotlin '1.5.30-M1'
+msg_info 'Will try to install kotlin latest version'
+asdf install kotlin 'latest' | tee -a kotlin-latest.out
+LATEST_VERSION="$(grep 'installation was successful' kotlin-latest.out | awk '{ print $2 }')"
+rm kotlin-latest.out
 msg_info 'Will test versions now'
 test_kotlin_version '1.0.3'
 test_kotlin_version '1.3.21'
 test_kotlin_version '1.4.30-RC'
 test_kotlin_version '1.5.30-M1'
+test_kotlin_version "${LATEST_VERSION}"
