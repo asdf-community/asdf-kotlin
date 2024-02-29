@@ -15,7 +15,7 @@ jobs:
         uses: asdf-vm/actions/install@v3
       - name: Setup python
         uses: actions/setup-python@v5
-      - uses: azure/setup-helm@v3
+      - uses: azure/setup-helm@v4
         with:
           version: 3.11.0
         id: install
