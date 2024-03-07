@@ -7,7 +7,7 @@ TOOL_NAME="kotlin"
 TOOL_TEST="kotlin -help"
 
 fail() {
-  echo -e "asdf-$TOOL_NAME: $*"
+  echo -e "asdf-${TOOL_NAME}: ${*}"
   exit 1
 }
 
@@ -15,7 +15,7 @@ curl_opts=(-fsSL)
 
 # NOTE: You might want to remove this if kotlin is not hosted on GitHub releases.
 if [ -n "${GITHUB_API_TOKEN-}" ]; then
-  curl_opts=("${curl_opts[@]}" -H "Authorization: token $GITHUB_API_TOKEN")
+  curl_opts=("${curl_opts[@]}" -H "Authorization: token ${GITHUB_API_TOKEN}")
 fi
 
 sort_versions() {
@@ -24,7 +24,7 @@ sort_versions() {
 }
 
 list_github_tags() {
-  git ls-remote --tags --refs "$GH_REPO" |
+  git ls-remote --tags --refs "${GH_REPO}" |
     grep -o 'refs/tags/v.*' | cut -d/ -f3- |
     sed 's/^v//' # NOTE: You might want to adapt this sed to remove non-version strings from tags
 }
@@ -35,39 +35,39 @@ list_all_versions() {
 
 download_release() {
   local version filename url
-  version="$1"
-  filename="$2"
+  version="${1}"
+  filename="${2}"
 
-  url="$GH_REPO/releases/download/v${version}/$TOOL_NAME-compiler-${version}.zip"
+  url="${GH_REPO}/releases/download/v${version}/${TOOL_NAME}-compiler-${version}.zip"
 
-  echo "* Downloading $TOOL_NAME release $version..."
-  curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
+  echo "* Downloading $TOOL_NAME release ${version}..."
+  curl "${curl_opts[@]}" -o "${filename}" -C - "${url}" || fail "Could not download ${url}"
 }
 
 install_version() {
-  local install_type="$1"
-  local version="$2"
-  local install_path="$3"
+  local install_type="${1}"
+  local version="${2}"
+  local install_path="${3}"
 
   if [ "$install_type" != "version" ]; then
-    fail "asdf-$TOOL_NAME supports release installs only"
+    fail "asdf-${TOOL_NAME} supports release installs only"
   fi
 
   (
-    mkdir -p "$install_path"
-    cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
+    mkdir -p "${install_path}"
+    cp -r "${ASDF_DOWNLOAD_PATH}"/* "${install_path}"
 
     local tool_cmd
-    tool_cmd="$(echo "$TOOL_TEST" | cut -d' ' -f1)"
+    tool_cmd="$(echo "${TOOL_TEST}" | cut -d' ' -f1)"
     test -x "${install_path}/kotlinc/bin/${tool_cmd}" || fail "Expected ${install_path}/kotlinc/bin/${tool_cmd} to be executable."
     if [[ -d "${install_path}/kotlin-native" ]]; then
       test -x "${install_path}/kotlin-native/bin/${tool_cmd}c-native" || fail "Expected ${install_path}/kotlin-native/bin/${tool_cmd}c-native to be executable."
     fi
 
-    echo "$TOOL_NAME $version installation was successful!"
+    echo "${TOOL_NAME} ${version} installation was successful!"
   ) || (
-    rm -rf "$install_path"
-    fail "An error ocurred while installing $TOOL_NAME $version."
+    rm -rf "${install_path}"
+    fail "An error ocurred while installing ${TOOL_NAME} ${version}."
   )
 }
 
@@ -82,7 +82,7 @@ get_native_download_path() {
   local temp_html="${tempdir}/github-kotlin.html"
   curl -s --disable "${check_url}" -o "${temp_html}"
   if grep -q "${grep_option}" "${check_regex}" "${temp_html}"; then
-    native_download_path="$(grep "${grep_option}" "${check_regex}" "${temp_html}" | cut -f2 -d '"')"
+    native_download_path="$(grep "${grep_option}" "${check_regex}" "${temp_html}" | grep -v 'sha256' | cut -f2 -d '"')"
   fi
   rm -rf "${tempdir}"
   echo "${native_download_path}"
