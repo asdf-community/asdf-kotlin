@@ -21,9 +21,10 @@ kotlin (and [kotlin-native if available](https://github.com/asdf-community/asdf-
 # Dependencies
 
 - `curl`, `tar`, `unzip`: generic POSIX utilities.
-- [Java 6 to 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+- [Java 8+](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
   - You may want to try [asdf-java](https://github.com/halcyon/asdf-java)
     `asdf plugin-add java https://github.com/halcyon/asdf-java`
+  - [Which versions of JVM does Kotlin target?](https://kotlinlang.org/docs/faq.html#which-versions-of-jvm-does-kotlin-target)
 
 # Install
 
@@ -83,6 +84,7 @@ MIT License
   (Version `1.4.30-RC`) on mac and linux
 - It tests installing a version of kotling with new kotlin native naming that
   includes arch (Version `1.5.30-M1`) on mac and linux
+- It tests installing `latest` version of kotlin on mac and linux
 
 ## Locally with Docker Compose
 
