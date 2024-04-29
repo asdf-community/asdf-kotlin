@@ -27,7 +27,7 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '8'
+          java-version: '21'
       - name: Checkout code
         uses: actions/checkout@v4
         with:

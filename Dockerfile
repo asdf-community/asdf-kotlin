@@ -1,4 +1,4 @@
-FROM ubuntu:jammy-20240416
+FROM ubuntu:noble-20240423
 
 RUN \
   apt update && \
