@@ -1,8 +1,8 @@
 <!-- markdownlint-disable MD041 -->
 <!-- markdownlint-disable MD033 MD013 -->
 
-> [!WARNING]  
-> Looking for maintainers. See https://github.com/asdf-community/asdf-kotlin/issues/73
+> [!WARNING]
+> Looking for maintainers. See <https://github.com/asdf-community/asdf-kotlin/issues/73>
 
 <div align="center">
 
