@@ -1,11 +1,12 @@
 <!-- markdownlint-disable MD041 -->
 <!-- markdownlint-disable MD033 MD013 -->
-<div align="center">
-
-# asdf-kotlin [![Build](https://github.com/asdf-community/asdf-kotlin/actions/workflows/build.yml/badge.svg)](https://github.com/asdf-community/asdf-kotlin/actions/workflows/build.yml)
 
 > [!WARNING]  
 > Looking for maintainers. See https://github.com/asdf-community/asdf-kotlin/issues/73
+
+<div align="center">
+
+# asdf-kotlin [![Build](https://github.com/asdf-community/asdf-kotlin/actions/workflows/build.yml/badge.svg)](https://github.com/asdf-community/asdf-kotlin/actions/workflows/build.yml)
 
 kotlin (and [kotlin-native if available](https://github.com/asdf-community/asdf-kotlin/pull/4)) plugin for [asdf version manager](https://github.com/asdf-vm/asdf)
 
