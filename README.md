@@ -4,6 +4,9 @@
 
 # asdf-kotlin [![Build](https://github.com/asdf-community/asdf-kotlin/actions/workflows/build.yml/badge.svg)](https://github.com/asdf-community/asdf-kotlin/actions/workflows/build.yml)
 
+> [!WARNING]  
+> Looking for maintainers. See https://github.com/asdf-community/asdf-kotlin/issues/73
+
 kotlin (and [kotlin-native if available](https://github.com/asdf-community/asdf-kotlin/pull/4)) plugin for [asdf version manager](https://github.com/asdf-vm/asdf)
 
 </div>
