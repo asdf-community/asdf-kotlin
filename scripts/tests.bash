@@ -160,7 +160,7 @@ if [[ ${USE_DIRENV} == 'yes' ]]; then
   setup_asdf_direnv
 fi
 msg_warn 'Trying to list all versions of kotlin'
-asdf list-all kotlin
+asdf list all kotlin
 msg_info 'Will try to install kotlin 1.0.3 (version without kotlin native)'
 asdf install kotlin '1.0.3'
 msg_info 'Will try to install kotlin 1.3.21 (version with kotlin native)'
