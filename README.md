@@ -50,7 +50,7 @@ asdf list-all kotlin
 asdf install kotlin latest
 
 # Set a version globally (on your ~/.tool-versions file)
-asdf global kotlin latest
+asdf set kotlin latest
 
 # Now kotlin commands are available
 kotlin -help
