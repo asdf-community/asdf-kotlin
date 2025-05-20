@@ -15,9 +15,6 @@ jobs:
         os:
           - ubuntu-latest
           - macos-latest
-        direnv:
-          - 'yes'
-          - 'no'
     runs-on: ${{ matrix.os }}
     steps:
       - name: asdf_plugin_test
@@ -37,7 +34,5 @@ jobs:
           mkdir -p "${HOME}/.asdf/plugins/"
           mv kotlin "${HOME}/.asdf/plugins/"
       - name: Run kotlin specific tests
-        env:
-          USE_DIRENV: ${{ matrix.direnv }}
         run: |-
           bash "${HOME}/.asdf/plugins/kotlin/scripts/tests.bash"
