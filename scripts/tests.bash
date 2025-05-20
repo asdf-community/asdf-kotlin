@@ -47,7 +47,7 @@ function install_requirements() {
   asdf plugin-add java
   msg_info "Will try to install java's ${JAVA_VERSION}"
   asdf install java "${JAVA_VERSION}"
-  asdf global java "${JAVA_VERSION}"
+  asdf set java "${JAVA_VERSION}"
 }
 
 function get_tool_version() {
@@ -58,7 +58,7 @@ function get_tool_version() {
 function set_kotlin_version() {
   local KOTLIN_VERSION="${1}"
   msg_warn "Setting kotlin ${KOTLIN_VERSION} as the default value in ${HOME}/.tool-versions"
-  asdf global kotlin "${KOTLIN_VERSION}"
+  asdf set kotlin "${KOTLIN_VERSION}"
 }
 
 function confirm_kotlin_version() {
