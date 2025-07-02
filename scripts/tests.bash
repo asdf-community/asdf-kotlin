@@ -114,6 +114,7 @@ fi
 if [[ ${GITHUB_ACTIONS} != 'true' ]]; then
   install_requirements
 fi
+msg_info "Running asdf version $(asdf version)"
 msg_warn 'Trying to list all versions of kotlin'
 asdf list all kotlin
 msg_info 'Will try to install kotlin 1.0.3 (version without kotlin native)'

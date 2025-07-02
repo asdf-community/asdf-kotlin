@@ -17,10 +17,13 @@ jobs:
           - macos-latest
     runs-on: ${{ matrix.os }}
     steps:
-      - name: asdf_plugin_test
-        uses: asdf-vm/actions/plugin-test@v4
-        with:
-          command: kotlin -help
+      - name: asdf_install
+        uses: asdf-vm/actions/setup@v4
+     # - name: asdf_plugin_test
+     #   uses: asdf-vm/actions/plugin-test@v4
+     #   with:
+     #     skip_install: true
+     #     command: kotlin -help
       - uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
