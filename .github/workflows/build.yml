@@ -33,7 +33,7 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           path: kotlin
       - name: Move kotlin plugin to plugins dir
