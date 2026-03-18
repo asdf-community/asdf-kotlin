@@ -1,4 +1,4 @@
-FROM ubuntu:noble-20260210.1
+FROM ubuntu:noble-20260217
 
 RUN \
   apt update && \
