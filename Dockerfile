@@ -1,4 +1,4 @@
-FROM ubuntu:26.04
+FROM ubuntu:resolute-20260413
 
 RUN \
   apt update && \
