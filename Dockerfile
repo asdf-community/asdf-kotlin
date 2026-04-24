@@ -1,4 +1,4 @@
-FROM ubuntu:noble-20260410
+FROM ubuntu:26.04
 
 RUN \
   apt update && \
