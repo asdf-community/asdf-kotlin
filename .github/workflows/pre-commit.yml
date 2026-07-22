@@ -16,7 +16,7 @@ jobs:
       - name: Install asdf dependencies
         uses: asdf-vm/actions/install@v4
       - name: Setup python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7
       - name: Install tools
         shell: bash
         run: |
