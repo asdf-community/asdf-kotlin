@@ -1,4 +1,4 @@
-FROM ubuntu:resolute-20260912
+FROM ubuntu:resolute-20260927
 
 RUN \
   apt update && \
