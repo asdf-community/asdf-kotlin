@@ -26,7 +26,16 @@ jobs:
         with:
           skip_install: true
           command: kotlin -help
-      - uses: actions/setup-java@v6
+      - name: Set up Java 21 for legacy Kotlin
+        id: java21
+        uses: actions/setup-java@v6
+        with:
+          distribution: 'temurin'
+          java-version: '21.0.13+100000002.0.LTS'
+          set-default: false
+      - name: Set up Java 25 for current Kotlin
+        id: java25
+        uses: actions/setup-java@v6
         with:
           distribution: 'temurin'
           java-version: '25.0.5+100000002.0.LTS'
@@ -39,5 +48,8 @@ jobs:
           mkdir -p "${HOME}/.asdf/plugins/"
           mv kotlin "${HOME}/.asdf/plugins/"
       - name: Run kotlin specific tests
+        env:
+          JAVA_LEGACY_HOME: ${{ steps.java21.outputs.path }}
+          JAVA_CURRENT_HOME: ${{ steps.java25.outputs.path }}
         run: |-
           bash "${HOME}/.asdf/plugins/kotlin/scripts/tests.bash"

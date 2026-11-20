@@ -2,7 +2,13 @@
 set -eo pipefail
 IFS=$'\n\t'
 
-JAVA_VERSION='openjdk-11.0.1'
+# Legacy Kotlin/Native (1.3.21, 1.4.30-RC, 1.5.30-M1) rejects JDK >= 25
+# in its bundled IntelliJ JavaVersion parser. Keep those tests on JDK 21.
+JAVA_LEGACY_VERSION='temurin-21.0.13+9.0.LTS'
+JAVA_CURRENT_VERSION='temurin-25.0.5+8.0.LTS'
+# CI supplies these from actions/setup-java outputs; local runs use `asdf where`.
+JAVA_LEGACY_HOME="${JAVA_LEGACY_HOME:-}"
+JAVA_CURRENT_HOME="${JAVA_CURRENT_HOME:-}"
 ANSI_NO_COLOR=$'\033[0m'
 THIS_SCRIPT=$(basename "${0}")
 
@@ -44,10 +50,30 @@ function return_non_empty_array() {
 }
 
 function install_requirements() {
-  asdf plugin-add java
-  msg_info "Will try to install java's ${JAVA_VERSION}"
-  asdf install java "${JAVA_VERSION}"
-  asdf set java "${JAVA_VERSION}"
+  if ! asdf plugin list | grep -qx 'java'; then
+    asdf plugin add java https://github.com/halcyon/asdf-java.git
+  fi
+  msg_info "Will try to install java's ${JAVA_LEGACY_VERSION} and ${JAVA_CURRENT_VERSION}"
+  asdf install java "${JAVA_LEGACY_VERSION}"
+  asdf install java "${JAVA_CURRENT_VERSION}"
+  asdf set java "${JAVA_CURRENT_VERSION}"
+}
+
+function get_java_home() {
+  local version="${1}"
+  local java_home=""
+  case "${version}" in
+    "${JAVA_LEGACY_VERSION}") java_home="${JAVA_LEGACY_HOME}" ;;
+    "${JAVA_CURRENT_VERSION}") java_home="${JAVA_CURRENT_HOME}" ;;
+    *) msg_fatal "Unknown java version: ${version}" ;;
+  esac
+  if [[ -z ${java_home} ]]; then
+    java_home="$(asdf where java "${version}")"
+  fi
+  if [[ ! -x "${java_home}/bin/java" ]]; then
+    msg_fatal "Java executable not found at ${java_home}/bin/java"
+  fi
+  printf '%s\n' "${java_home}"
 }
 
 function get_tool_version() {
@@ -81,8 +107,12 @@ function confirm_kotlin_version() {
 
 function test_kotlin_version() {
   local KOTLIN_VERSION="${1}"
+  local JAVA_VERSION="${2:-${JAVA_CURRENT_VERSION}}"
+  local java_home
+  java_home="$(get_java_home "${JAVA_VERSION}")"
+  export JAVA_HOME="${java_home}"
   set_kotlin_version "${KOTLIN_VERSION}"
-  msg_warn "java version is $(java -version)"
+  msg_warn "java version is $("${JAVA_HOME}/bin/java" -version 2>&1)"
   confirm_kotlin_version "${KOTLIN_VERSION}"
 }
 
@@ -130,8 +160,8 @@ asdf install kotlin 'latest' | tee -a kotlin-latest.out
 LATEST_VERSION="$(grep 'installation was successful' kotlin-latest.out | awk '{ print $2 }')"
 rm kotlin-latest.out
 msg_info 'Will test versions now'
-test_kotlin_version '1.0.3'
-test_kotlin_version '1.3.21'
-test_kotlin_version '1.4.30-RC'
-test_kotlin_version '1.5.30-M1'
-test_kotlin_version "${LATEST_VERSION}"
+test_kotlin_version '1.0.3' "${JAVA_LEGACY_VERSION}"
+test_kotlin_version '1.3.21' "${JAVA_LEGACY_VERSION}"
+test_kotlin_version '1.4.30-RC' "${JAVA_LEGACY_VERSION}"
+test_kotlin_version '1.5.30-M1' "${JAVA_LEGACY_VERSION}"
+test_kotlin_version "${LATEST_VERSION}" "${JAVA_CURRENT_VERSION}"

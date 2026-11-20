@@ -3,5 +3,16 @@
   "extends": [
     "config:base",
     "schedule:daily"
+  ],
+  "packageRules": [
+    {
+      "enabled": false,
+      "matchDatasources": [
+        "java-version"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ]
+    }
   ]
 }
