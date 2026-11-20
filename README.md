@@ -25,7 +25,7 @@ kotlin (and [kotlin-native if available](https://github.com/asdf-community/asdf-
 # Dependencies
 
 - `curl`, `tar`, `unzip`: generic POSIX utilities.
-- [Java 8+](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+- [Java 8+](https://adoptium.net/temurin/releases/)
   - You may want to try [asdf-java](https://github.com/halcyon/asdf-java)
     `asdf plugin-add java https://github.com/halcyon/asdf-java`
   - [Which versions of JVM does Kotlin target?](https://kotlinlang.org/docs/faq.html#which-versions-of-jvm-does-kotlin-target)
@@ -80,6 +80,9 @@ MIT License
 
 **Note**: See [workflows](./.github/workflows)
 
+- Legacy Kotlin versions (`1.0.3`, `1.3.21`, `1.4.30-RC`, `1.5.30-M1`)
+  run on JDK 21.
+- The `latest` Kotlin version runs on JDK 25.
 - It tests installing a version of kotlin without kotlin native
   (Version `1.0.3`) on mac and linux
 - It tests installing a version of kotlin with kotlin native (Version `1.3.21`)
@@ -111,11 +114,11 @@ on every run
   100 75.5M  100 75.5M    0     0  11.1M      0  0:00:06  0:00:06 --:--:-- 13.6M
   asdf-kotlin-linux-test | Setting kotlin 1.0.3 as the default value in ~/.tool-versions
   asdf-kotlin-linux-test | Confirming version 1.0.3
-  asdf-kotlin-linux-test | Kotlin version 1.0.3 (JRE 11.0.1+13)
+  asdf-kotlin-linux-test | Kotlin version 1.0.3 (JRE 21.0.13+9-LTS)
   asdf-kotlin-linux-test | Setting kotlin 1.3.21 as the default value in ~/.tool-versions
   asdf-kotlin-linux-test | Confirming version 1.3.21
-  asdf-kotlin-linux-test | Kotlin version 1.3.21-release-158 (JRE 11.0.1+13)
-  asdf-kotlin-linux-test | info: kotlinc-native 1.3.21 (JRE 11.0.1+13)
+  asdf-kotlin-linux-test | Kotlin version 1.3.21-release-158 (JRE 21.0.13+9-LTS)
+  asdf-kotlin-linux-test | info: kotlinc-native 1.3.21 (JRE 21.0.13+9-LTS)
   asdf-kotlin-linux-test exited with code 0
   ```
 

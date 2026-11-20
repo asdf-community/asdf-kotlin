@@ -1,5 +1,4 @@
 ---
-version: '3'
 services:
   no-direnv:
     build: .
@@ -10,8 +9,17 @@ services:
       - .:/home/build/src
     command:
       - |-
-        git clone https://github.com/asdf-vm/asdf.git ~/.asdf && \
-          . ~/.asdf/asdf.sh && \
-          mkdir -p ~/.asdf/plugins/kotlin && \
-          rsync -a /home/build/src/ ~/.asdf/plugins/kotlin/ && \
-          bash ~/.asdf/plugins/kotlin/scripts/tests.bash
+        mkdir -p ~/.local/bin && \
+        HOST="github.com" && \
+        REPO="asdf-vm/asdf" && \
+        ARCH=$$(uname -m | sed -e "s/x86_64/amd64/" -e "s/aarch64/arm64/") && \
+        TAG=$$(curl -fsSLI -o /dev/null -w "%{url_effective}" "https://$${HOST}/$${REPO}/releases/latest" | sed "s|.*/||") && \
+        curl -fsSL "https://$${HOST}/$${REPO}/releases/download/$${TAG}/asdf-$${TAG}-linux-$${ARCH}.tar.gz" | tar -xz -C ~/.local/bin asdf && \
+        echo 'export PATH="$${HOME}/.local/bin:$${ASDF_DATA_DIR:-$${HOME}/.asdf}/shims:$${PATH}"' >> ~/.bashrc && source ~/.bashrc && \
+        export PATH="$${HOME}/.local/bin:$${ASDF_DATA_DIR:-$${HOME}/.asdf}/shims:$${PATH}" && \
+        ls -lah ~/.local/bin && \
+        echo "$${PATH}" && \
+        asdf --version && \
+        mkdir -p ~/.asdf/plugins/kotlin && \
+        rsync -a /home/build/src/ ~/.asdf/plugins/kotlin/ && \
+        bash ~/.asdf/plugins/kotlin/scripts/tests.bash
